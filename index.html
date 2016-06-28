@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+  http://www.starjammer-bulletin.com/bulletin/wp-content/uploads/2016/07/prestel.jpg
+  https://en.wikipedia.org/wiki/List_of_8-bit_computer_hardware_palettes#BBC_Micro
+  https://en.wikipedia.org/wiki/Colour_look-up_table
+  https://fontstruct.com/gallery/tag/7561/Bbc%20Micro
+  -->
+  <!--
+                          H                        
+                        H E R                      
+                      H E R E T                    
+                    H E R E T G E                  
+                  H E R E T G E . G                
+                H E R E T G E . G I T              
+              H E R E T G E . G I T H U            
+            H E R E T G E . G I T H U B .          
+          H E R E T G E . G I T H U B . I O        
+        H E R E T G E . G I T H U B . I O / L      
+      H E R E T G E . G I T H U B . I O / L E T    
+    H E R E T G E . G I T H U B . I O / L E T S E  
+  H E R E T G E . G I T H U B . I O / L E T S E R P
+    R E T G E . G I T H U B . I O / L E T S E R P  
+      T G E . G I T H U B . I O / L E T S E R P    
+        E . G I T H U B . I O / L E T S E R P      
+          G I T H U B . I O / L E T S E R P        
+            T H U B . I O / L E T S E R P          
+              U B . I O / L E T S E R P            
+                . I O / L E T S E R P              
+                  O / L E T S E R P                
+                    L E T S E R P                  
+                      T S E R P                    
+                        E R P                      
+                          P                        
+  -->
+  <meta charset="UTF-8">
+  <title>LETSERP Gen</title>
+  <style>
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #dfe3ec;
+    }
+    .page-content {
+      position: relative;
+      display: block;
+      box-sizing: border-box;
+      margin: 0 auto;
+      padding: 0 20px;
+      width: 100%;
+      max-width: 1200px;
+    }
+    .headline {
+      margin: 60px 0 55px;
+      text-align: center;
+      font: normal normal 4.2rem serif;
+      color: #555;
+    }
+    .headline small {
+      position: absolute;
+      font: italic normal 1rem serif;
+      top: 72px;
+    }
+    .text-input {
+      position: relative;
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      padding: 15px;
+      font: 2rem/48px sans-serif;
+      outline: none;
+      margin-bottom: 15px;
+      background: #fff;
+      color: #333;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    .mirror {
+      margin-bottom: 36px;
+    }
+    .mirror label {
+      font: 1rem sans-serif;
+      color: #555;
+    }
+    .submit {
+      position: relative;
+      display: block;
+      margin: 0 auto;
+      padding: 15px 30px;
+      font: normal normal 4rem sans-serif;
+      text-align: center;
+      text-transform: uppercase;
+      color: #5570f6;
+      background: #dfe3ec;
+      border: 2px solid #5570f6;
+      outline: none;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+    .submit:hover {
+      color: #fff;
+      background: #5570f6;
+    }
+    .submit:active {
+      color: #fff;
+      background: #6e85f7;
+      border-color: #6e85f7;
+    }
+    .result {
+      margin: 55px 0 50px;
+      font: bold normal 2rem/3rem monospace;
+      text-align: center;
+      color: #555;
+      letter-spacing: 0.7rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-content">
+    <h1 class="headline">
+      <small>
+        <a href="https://www.youtube.com/watch?v=szdbKz5CyhA" target="_blank" rel="nofollow">Make The Internet Fancy Again</a>
+      </small>
+      <span>LETSERP Gen</span>
+    </h1>
+
+    <input type="text" class="text-input" placeholder="Odd word" input autofocus="true" autocapitalize="off" spellcheck="false">
+    <div class="mirror">
+      <input type="checkbox" id="mirror" mirror>
+      <label for="mirror">Mirror text</label>
+    </div>
+    <button class="submit" submit>&#9742;</button>
+    <div class="result" output></div>
+  </div>
+
+  <script>
+    (function(){
+      function odd(n) {
+        return 2 * n + 1;
+      }
+
+      function spaces(count) {
+        return Array.apply(null, Array(count)).map(function() { return ' ' }).join('');
+      }
+
+      function cut(str, len, available) {
+        var slen = Math.floor((len - available) / 2);
+        var spc = spaces(slen);
+        return spc + str.slice(0, available) + spc;
+      }
+
+      function retardedNormal(str, n, len, half) {
+        if (n < half) {
+          return cut(str, len, odd(n));
+        } else {
+          n = len - n - 1
+          str = str.split('').reverse().join('')
+          return cut(str, len, odd(n)).split('').reverse().join('');
+        }
+      }
+
+      function letserp(str, mirror) {
+        var len = str.length;
+        var half = Math.ceil(len / 2);
+        var arr = Array.apply(null, Array(len));
+        return arr
+          .map(function(v, n) { return retardedNormal(str, n, len, half).split('').join(' ') + '<br>' })
+          .join('').toUpperCase().replace(/\s/g, String.fromCharCode(8199));
+      }
+
+      function fire() {
+        result.innerHTML = letserp(input.value);
+      }
+
+      function selectText(node) {
+        if (document.selection) {
+            var range = document.body.createTextRange();
+            range.moveToElementText(node);
+            range.select();
+        } else if (window.getSelection) {
+            var range = document.createRange();
+            range.selectNodeContents(node);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+        }
+      }
+
+      var input = document.querySelector('[input]');
+      var submit = document.querySelector('[submit]');
+      var result = document.querySelector('[output]');
+      var mirror = document.querySelector('[mirror]');
+
+      submit.addEventListener('click', fire);
+      input.addEventListener('keyup', function(event){
+        if(event.keyCode === 13) fire();
+      });
+      result.addEventListener('click', function(){
+        selectText(result);
+      });
+    })();
+  </script>
+</body>
+</html>
