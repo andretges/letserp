@@ -78,13 +78,6 @@
       border: 1px solid #ccc;
       border-radius: 10px;
     }
-    .mirror {
-      margin-bottom: 36px;
-    }
-    .mirror label {
-      font: 1rem sans-serif;
-      color: #555;
-    }
     .submit {
       position: relative;
       display: block;
@@ -128,10 +121,6 @@
     </h1>
 
     <input type="text" class="text-input" placeholder="Odd word" input autofocus="true" autocapitalize="off" spellcheck="false">
-    <div class="mirror">
-      <input type="checkbox" id="mirror" mirror>
-      <label for="mirror">Mirror text</label>
-    </div>
     <button class="submit" submit>&#9742;</button>
     <div class="result" output></div>
   </div>
@@ -162,7 +151,7 @@
         }
       }
 
-      function letserp(str, mirror) {
+      function letserp(str) {
         var len = str.length;
         var half = Math.ceil(len / 2);
         var arr = Array.apply(null, Array(len));
@@ -191,7 +180,6 @@
       var input = document.querySelector('[input]');
       var submit = document.querySelector('[submit]');
       var result = document.querySelector('[output]');
-      var mirror = document.querySelector('[mirror]');
 
       submit.addEventListener('click', fire);
       input.addEventListener('keyup', function(event){
