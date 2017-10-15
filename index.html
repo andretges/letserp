@@ -37,12 +37,19 @@
   <meta charset="UTF-8">
   <title>LETSERP Gen</title>
   <style>
+    @font-face {
+      font-family: 'mallard_smoothregular';
+      src: url('fonts/mallard_smooth-webfont.woff2') format('woff2'),
+           url('fonts/mallard_smooth-webfont.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
     body {
       width: 100%;
       height: 100%;
       margin: 0;
       padding: 0;
-      background: #dfe3ec;
+      background: #111;
     }
     .page-content {
       position: relative;
@@ -54,60 +61,105 @@
       max-width: 1200px;
     }
     .headline {
-      margin: 60px 0 55px;
+      margin: 80px 0 55px;
       text-align: center;
-      font: normal normal 4.2rem serif;
-      color: #555;
+      font: normal normal 6rem 'mallard_smoothregular', monospace;
+      color: #fff;
+    }
+    .brand {
+      cursor: default;
+      user-select: none;
     }
     .headline small {
       position: absolute;
-      font: italic normal 1rem serif;
+      font: normal normal 2rem 'mallard_smoothregular', monospace;
+      color: #fff;
       top: 72px;
+    }
+    .headline span {
+      transition: color .3s ease-out;
+    }
+    .headline a {
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 0.5px solid #fff;
+      transition: border .3s ease-out;
+    }
+    .green {
+      color: #0f0;
+    }
+    .red {
+      color: #f00;
+    }
+    .cyan {
+      color: #0ff;
+    }
+    .blue {
+      color: #00f;
+    }
+    .white {
+      color: #fff;
+    }
+    .magenta {
+      color: #f0f;
+    }
+    .yellow {
+      color: #ff0;
+    }
+    .input-wrap {
+      position: relative;
     }
     .text-input {
       position: relative;
       display: block;
       box-sizing: border-box;
       width: 100%;
-      padding: 15px;
-      font: 2rem/48px sans-serif;
+      padding: 15px 15px 8px;
+      font: 2rem/48px 'mallard_smoothregular', monospace;
+      text-transform: uppercase;
+      text-indent: 20px;
       outline: none;
       margin-bottom: 15px;
-      background: #fff;
-      color: #333;
-      border: 1px solid #ccc;
-      border-radius: 10px;
+      background: transparent;
+      color: #777;
+      border: 0;
     }
-    .submit {
-      position: relative;
-      display: block;
-      margin: 0 auto;
-      padding: 15px 30px;
-      font: normal normal 4rem sans-serif;
-      text-align: center;
+    label:before {
+      content: '>';
+      color: #777;
+      position: absolute;
+      left: 0;
+      top: 0;
+      box-sizing: border-box;
+      padding: 15px 15px 8px;
+      font: 2rem/48px 'mallard_smoothregular', monospace;
       text-transform: uppercase;
-      color: #5570f6;
-      background: #dfe3ec;
-      border: 2px solid #5570f6;
       outline: none;
-      border-radius: 30px;
-      cursor: pointer;
+      transition: color .5s;
     }
-    .submit:hover {
-      color: #fff;
-      background: #5570f6;
+    .text-input::placeholder {
+      transition: color .5s;
+      color: #777;
     }
-    .submit:active {
-      color: #fff;
-      background: #6e85f7;
-      border-color: #6e85f7;
+    .text-input:not(:placeholder-shown) + label:before,
+    .text-input:focus + label:before,
+    .text-input:not(:placeholder-shown),
+    .text-input:focus::placeholder,
+    .text-input:focus {
+      color: #0a0;
     }
-    .result {
-      margin: 55px 0 50px;
-      font: bold normal 2rem/3rem monospace;
+    .output {
+      margin: 135px 0 50px;
+      font: normal normal 3.5rem/2.5rem 'mallard_smoothregular', monospace;
       text-align: center;
-      color: #555;
+      color: #fff;
       letter-spacing: 0.7rem;
+    }
+    .output::selection,
+    .output span::selection,
+    .output br::selection {
+      background: #0a0;
+      color: #fff;
     }
   </style>
 </head>
@@ -115,39 +167,92 @@
   <div class="page-content">
     <h1 class="headline">
       <small>
-        <a href="https://www.youtube.com/watch?v=szdbKz5CyhA" target="_blank" rel="nofollow">Make The Internet Fancy Again</a>
+        <a href="https://www.youtube.com/watch?v=szdbKz5CyhA" target="_blank" rel="nofollow" fancy>
+          <span data-color="green">M</span><span data-color="red">a</span><span data-color="cyan">k</span><span data-color="blue">e</span>
+          <span data-color="magenta">T</span><span data-color="yellow">h</span><span data-color="green">e</span>
+          <span data-color="red">I</span><span data-color="cyan">n</span><span data-color="blue">t</span><span data-color="magenta">e</span><span data-color="yellow">r</span><span data-color="green">n</span><span data-color="red">e</span><span data-color="cyan">t</span>
+          <span data-color="blue">F</span><span data-color="magenta">a</span><span data-color="yellow">n</span><span data-color="green">c</span><span data-color="red">y</span>
+          <span data-color="cyan">A</span><span data-color="blue">g</span><span data-color="magenta">a</span><span data-color="yellow">i</span><span data-color="green">n</span>
+        </a>
       </small>
-      <span>LETSERP Gen</span>
+      <span class="brand">
+        <span class="green">L</span>
+        <span class="red">E</span>
+        <span class="cyan">T</span>
+        <span class="blue">S</span>
+        <span class="white">E</span>
+        <span class="magenta">R</span>
+        <span class="yellow">P</span>
+      </span>
     </h1>
 
-    <input type="text" class="text-input" placeholder="Odd word" input autofocus="true" autocapitalize="off" spellcheck="false">
-    <button class="submit" submit>&#9742;</button>
-    <div class="result" output></div>
+    <div class="input-wrap">
+      <input id="input" type="text" class="text-input" placeholder="Odd word" input autofocus="true" autocapitalize="off" spellcheck="false">
+      <label for="input"></label>
+    </div>
+    <div class="output" output></div>
   </div>
 
   <script>
     (function(){
+      var COLORS = {
+        green: '#0f0',
+        red: '#f00',
+        cyan: '#0ff',
+        blue: '#00f',
+        white: '#fff',
+        magenta: '#f0f',
+        yellow: '#ff0'
+      };
+
+      var COLOR_VALUES = Object.keys(COLORS).map(function(key) { return COLORS[key]; });
+      var REVERSED_COLORS = COLOR_VALUES.slice().reverse();
+
       function odd(n) {
         return 2 * n + 1;
       }
 
       function spaces(count) {
-        return Array.apply(null, Array(count)).map(function() { return ' ' }).join('');
+        return Array.apply(null, Array(count)).map(function() { return String.fromCharCode(8199) + String.fromCharCode(8199) }).join('');
       }
 
-      function cut(str, len, available) {
+      function reverse(str) {
+        return str.split('').reverse().join('');
+      }
+
+      function colored(str, rev, slen, half) {
+        var mirror = false;
+        return str.split('').map(function(v, n) {
+          n = rev ? 2 * slen + n : n;
+          if (mirror) {
+            var colors = n >= half ? REVERSED_COLORS : COLOR_VALUES;
+          } else {
+            var colors = COLOR_VALUES;
+          }
+          return '<span style="color: '+colors[n % COLOR_VALUES.length]+'">' + v.toUpperCase() + '</span>' + String.fromCharCode(8199);
+        }).join('');
+      }
+
+      function cut(str, len, available, half, rev) {
         var slen = Math.floor((len - available) / 2);
         var spc = spaces(slen);
-        return spc + str.slice(0, available) + spc;
+
+        if (rev) {
+          str = reverse(str);
+          str = reverse(str.slice(0, available));
+        } else {
+          str = str.slice(0, available);
+        }
+
+        return spc + colored(str, rev, slen, half) + spc;
       }
 
-      function retardedNormal(str, n, len, half) {
+      function retardedNormal(str, len, half, n) {
         if (n < half) {
-          return cut(str, len, odd(n));
+          return cut(str, len, odd(n), half);
         } else {
-          n = len - n - 1
-          str = str.split('').reverse().join('')
-          return cut(str, len, odd(n)).split('').reverse().join('');
+          n = len - n - 1;
+          return cut(str, len, odd(n), half, true);
         }
       }
 
@@ -155,13 +260,11 @@
         var len = str.length;
         var half = Math.ceil(len / 2);
         var arr = Array.apply(null, Array(len));
-        return arr
-          .map(function(v, n) { return retardedNormal(str, n, len, half).split('').join(' ') + '<br>' })
-          .join('').toUpperCase().replace(/\s/g, String.fromCharCode(8199));
+        return arr.map(function(v, n) { return retardedNormal(str, len, half, n).slice(0, -1) + '<br>' }).join('');
       }
 
       function fire() {
-        result.innerHTML = letserp(input.value);
+        output.innerHTML = letserp(input.value);
       }
 
       function selectText(node) {
@@ -178,15 +281,29 @@
       }
 
       var input = document.querySelector('[input]');
-      var submit = document.querySelector('[submit]');
-      var result = document.querySelector('[output]');
+      var output = document.querySelector('[output]');
+      var fancy = document.querySelector('[fancy]');
 
-      submit.addEventListener('click', fire);
+      fancy.addEventListener('mouseover', function(event){
+        var color = event.target.dataset.color;
+        event.target.classList.add(color);
+        this.style.borderColor = COLORS[color];
+      });
+      fancy.addEventListener('mouseout', function(event){
+        setTimeout(() => {
+          event.target.classList.remove(event.target.dataset.color);
+        }, 300);
+      });
+      fancy.addEventListener('mouseleave', function(event){
+        setTimeout(() => {
+          this.style.borderColor = COLORS['white'];
+        }, 300);
+      });
       input.addEventListener('keyup', function(event){
         if(event.keyCode === 13) fire();
       });
-      result.addEventListener('click', function(){
-        selectText(result);
+      output.addEventListener('click', function(){
+        selectText(output);
       });
     })();
   </script>
